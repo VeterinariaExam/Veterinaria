@@ -146,6 +146,97 @@ public class MascotaController : ControllerBase
         }
     }
 
+    [HttpGet("filtrar")]
+    public ActionResult<IEnumerable<MascotaDTO>> FiltrarMascotas([FromQuery] string? especie, [FromQuery] int? edadMinima, [FromQuery] int? edadMaxima)
+    {
+        IEnumerable<Mascota> resultados = _service.Listar();
+
+        if (!string.IsNullOrEmpty(especie))
+            resultados = resultados.Where(m => m.Especie.Equals(especie, StringComparison.OrdinalIgnoreCase));
+
+        if (edadMinima.HasValue && edadMaxima.HasValue)
+        {
+            var fechaActual = DateTime.Now;
+            var fechaMaximaNacimiento = fechaActual.AddYears(-edadMinima.Value);
+            var fechaMinimaNacimiento = fechaActual.AddYears(-edadMaxima.Value - 1).AddDays(1);
+
+            resultados = resultados.Where(m => m.FechaNacimiento >= fechaMinimaNacimiento && m.FechaNacimiento <= fechaMaximaNacimiento);
+        }
+
+        var dtos = resultados.Select(m => new MascotaDTO
+        {
+            Id = m.Id,
+            Nombre = m.Nombre,
+            Especie = m.Especie,
+            FechaNacimiento = m.FechaNacimiento,
+            Sexo = m.Sexo,
+            Raza = m.Raza,
+            IdDueno = m.Dueno?.Id ?? Guid.Empty
+        });
+
+        return Ok(dtos);
+    }
+
+    [HttpGet("{id}/historial-completo")]
+    public ActionResult<HistorialClinicoDTO> GetHistorialCompleto(Guid id)
+    {
+        try
+        {
+            var historial = _service.ObtenerHistorialCompleto(id);
+
+            var dto = new HistorialClinicoDTO
+            {
+                Registros = historial.Registros.Select(r => new RegistroClinicoDTO
+                {
+                    Id = r.Id,
+                    Fecha = r.Fecha,
+                    IdVeterinario = r.Veterinario.Id,
+                    Diagnostico = r.Diagnostico,
+                    ServiciosRealizados = r.ServiciosRealizados.Select(s => s.Id).ToList(),
+                    NotasAdicionales = r.NotasAdicionales
+                }).ToList(),
+
+                Vacunas = historial.Vacunas.Select(v => new VacunaDTO
+                {
+                    Id = v.Id,
+                    Nombre = v.Nombre,
+                    FechaAplicacion = v.FechaAplicacion,
+                    Lote = v.Lote
+                }).ToList(),
+
+                Citas = historial.Citas.Select(c => new CitaDTO
+                {
+                    Id = c.Id,
+                    FechaHora = c.FechaHora,
+                    VeterinarioId = c.Veterinario.Id,
+                    Motivo = c.Motivo,
+                    Estado = c.Estado
+                }).ToList()
+            };
+
+            return Ok(dto);
+        }
+        catch (ArgumentException ex)
+        {
+            return NotFound(ex.Message);
+        }
+    }
+
+    [HttpPost("{id}/citas")]
+public ActionResult AgregarCita(Guid id, [FromBody] CitaDTO dtoCita)
+{
+    if (dtoCita == null) return BadRequest("Cita inválida.");
+
+    try
+    {
+        _service.AgregarCitaAMascota(id, dtoCita);
+        return NoContent();
+    }
+    catch (ArgumentException ex)
+    {
+        return NotFound(ex.Message);
+    }
+}
 
 
 }

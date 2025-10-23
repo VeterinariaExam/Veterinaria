@@ -6,11 +6,13 @@ public class MascotaService
 {
     private readonly RepositorioMascota _repositorioMascota;
     private readonly RepositorioDueno _repositorioDueno;
+    private readonly RepositorioVeterinario _repositorioVeterinario;
 
-    public MascotaService(RepositorioMascota repositorioMascota, RepositorioDueno repositorioDueno)
+    public MascotaService(RepositorioMascota repositorioMascota, RepositorioDueno repositorioDueno,RepositorioVeterinario repositorioVeterinario )
     {
         _repositorioMascota = repositorioMascota;
         _repositorioDueno = repositorioDueno;
+        _repositorioVeterinario = repositorioVeterinario;
     }
 
     public IEnumerable<Mascota> Listar()
@@ -127,6 +129,56 @@ public class MascotaService
 
         return mascota.Historial.Vacunas;
     }
+    public IEnumerable<Mascota> FiltrarPorEspecie(string especie)
+    {
+        return _repositorioMascota.ListarTodos()
+            .Where(m => m.Especie.Equals(especie, StringComparison.OrdinalIgnoreCase));
+    }
+
+    public IEnumerable<Mascota> FiltrarPorRangoEdad(int edadMinima, int edadMaxima)
+    {
+        var fechaActual = DateTime.Now;
+        var fechaMaximaNacimiento = fechaActual.AddYears(-edadMinima);
+        var fechaMinimaNacimiento = fechaActual.AddYears(-edadMaxima - 1).AddDays(1);
+
+        return _repositorioMascota.ListarTodos()
+            .Where(m => m.FechaNacimiento >= fechaMinimaNacimiento && m.FechaNacimiento <= fechaMaximaNacimiento);
+    }
+
+    public IEnumerable<Mascota> FiltrarPorEspecieYEdadSeparados(string especie, int edadMinima, int edadMaxima)
+    {
+        var porEspecie = FiltrarPorEspecie(especie);
+        var porEdad = FiltrarPorRangoEdad(edadMinima, edadMaxima);
+        return porEspecie.Intersect(porEdad);
+    }
+    public HistorialClinico ObtenerHistorialCompleto(Guid idMascota)
+    {
+        var mascota = _repositorioMascota.ObtenerPorId(idMascota)
+            ?? throw new ArgumentException("Mascota no encontrada");
+
+        return mascota.Historial;
+    }
+
+    public void AgregarCitaAMascota(Guid idMascota, CitaDTO dtoCita)
+    {
+        var mascota = _repositorioMascota.ObtenerPorId(idMascota)
+            ?? throw new ArgumentException("Mascota no encontrada.");
+
+        var cita = new Cita
+        {
+            Id = Guid.NewGuid(),
+            FechaHora = dtoCita.FechaHora,
+            Veterinario = _repositorioVeterinario.ObtenerPorId(dtoCita.VeterinarioId)
+                          ?? throw new ArgumentException("Veterinario no encontrado."),
+            Motivo = dtoCita.Motivo,
+            Estado = dtoCita.Estado
+        };
+
+        mascota.Historial.Citas.Add(cita);
+        _repositorioMascota.Actualizar(mascota);
+    }
+
+
 
 
 }

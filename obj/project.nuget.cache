@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "v3K51z2YVBQ=",
+  "success": true,
+  "projectFilePath": "/home/dwayne/Documents/Base de Datos Avanzadas/VeterinariaBDOO_SegundoParcial_AlexEmannuel/VeterinariaBDOO_SegundoParcial_AlexEmannuel.csproj",
+  "expectedPackageFiles": [
+    "/home/dwayne/.nuget/packages/litedb/5.0.21/litedb.5.0.21.nupkg.sha512",
+    "/home/dwayne/.nuget/packages/microsoft.aspnetcore.openapi/9.0.9/microsoft.aspnetcore.openapi.9.0.9.nupkg.sha512",
+    "/home/dwayne/.nuget/packages/microsoft.openapi/1.6.17/microsoft.openapi.1.6.17.nupkg.sha512",
+    "/home/dwayne/.nuget/packages/system.buffers/4.5.1/system.buffers.4.5.1.nupkg.sha512",
+    "/home/dwayne/.nuget/packages/microsoft.aspnetcore.app.ref/9.0.9/microsoft.aspnetcore.app.ref.9.0.9.nupkg.sha512"
+  ],
+  "logs": []
+}

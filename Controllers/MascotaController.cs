@@ -10,7 +10,7 @@ public class MascotaController : ControllerBase
     private readonly MascotaService _service;
     private readonly MascotaService _mascotaService;
 
-    public MascotaController(MascotaService service,MascotaService mascotaService)
+    public MascotaController(MascotaService service, MascotaService mascotaService)
     {
         _service = service;
         _mascotaService = mascotaService;
@@ -90,10 +90,26 @@ public class MascotaController : ControllerBase
         return NoContent();
     }
 
+    [HttpPost("{id}/vacunas")]
+    public ActionResult AgregarVacuna(Guid id, [FromBody] VacunaDTO dtoVacuna)
+    {
+        if (dtoVacuna == null) return BadRequest("Vacuna inválida.");
+
+        try
+        {
+            _service.AgregarVacunaAMascota(id, dtoVacuna);
+            return NoContent();
+        }
+        catch (ArgumentException ex)
+        {
+            return NotFound(ex.Message);
+        }
+    }
+
     [HttpGet("vacunas-vencidas")]
     public ActionResult<IEnumerable<MascotaDTO>> GetVacunasVencidas()
     {
-        var mascotas = _mascotaService.ListarMascotasConVacunasVencidas();
+        var mascotas = _service.ListarMascotasConVacunasVencidas();
         var dtos = mascotas.Select(m => new MascotaDTO
         {
             Id = m.Id,
@@ -102,9 +118,34 @@ public class MascotaController : ControllerBase
             FechaNacimiento = m.FechaNacimiento,
             Sexo = m.Sexo,
             Raza = m.Raza,
+            IdDueno = m.Dueno?.Id ?? Guid.Empty
         });
         return Ok(dtos);
     }
+
+    [HttpGet("{id}/vacunas")]
+    public ActionResult<IEnumerable<VacunaDTO>> GetVacunas(Guid id)
+    {
+        try
+        {
+            var vacunas = _service.ListarVacunasDeMascota(id);
+
+            var dtos = vacunas.Select(v => new VacunaDTO
+            {
+                Id = v.Id,
+                Nombre = v.Nombre,
+                FechaAplicacion = v.FechaAplicacion,
+                Lote = v.Lote
+            });
+
+            return Ok(dtos);
+        }
+        catch (ArgumentException ex)
+        {
+            return NotFound(ex.Message);
+        }
+    }
+
 
 
 }

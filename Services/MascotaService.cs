@@ -94,10 +94,39 @@ public class MascotaService
     {
         _repositorioMascota.Eliminar(x => x.Id == id);
     }
+
+    public void AgregarVacunaAMascota(Guid idMascota, VacunaDTO dtoVacuna)
+    {
+        var mascota = _repositorioMascota.ObtenerPorId(idMascota);
+        if (mascota == null)
+            throw new ArgumentException("Mascota no encontrada.");
+
+        var vacuna = new Vacuna
+        {
+            Id = Guid.NewGuid(),
+            Nombre = dtoVacuna.Nombre,
+            FechaAplicacion = dtoVacuna.FechaAplicacion,
+            Lote = dtoVacuna.Lote
+        };
+
+        mascota.Historial.Vacunas.Add(vacuna);
+        _repositorioMascota.Actualizar(mascota);
+    }
+
     public IEnumerable<Mascota> ListarMascotasConVacunasVencidas()
     {
         var fechaLimite = DateTime.Now.AddYears(-1);
         return _repositorioMascota.ListarTodos()
             .Where(m => m.Historial.Vacunas.Any(v => v.FechaAplicacion <= fechaLimite));
     }
+
+    public List<Vacuna> ListarVacunasDeMascota(Guid idMascota)
+    {
+        var mascota = _repositorioMascota.ObtenerPorId(idMascota)
+            ?? throw new ArgumentException("Mascota no encontrada.");
+
+        return mascota.Historial.Vacunas;
+    }
+
+
 }

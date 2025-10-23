@@ -1,14 +1,18 @@
 {
   "version": 2,
-  "dgSpecHash": "v3K51z2YVBQ=",
+  "dgSpecHash": "iFVPibDmQ6w=",
   "success": true,
-  "projectFilePath": "/home/dwayne/Documents/Base de Datos Avanzadas/VeterinariaBDOO_SegundoParcial_AlexEmannuel/VeterinariaBDOO_SegundoParcial_AlexEmannuel.csproj",
+  "projectFilePath": "/home/alex/Documentos/Universidad/6 Base de datos/proyectos/Vet-exam/Veterinaria/VeterinariaBDOO_SegundoParcial_AlexEmannuel.csproj",
   "expectedPackageFiles": [
-    "/home/dwayne/.nuget/packages/litedb/5.0.21/litedb.5.0.21.nupkg.sha512",
-    "/home/dwayne/.nuget/packages/microsoft.aspnetcore.openapi/9.0.9/microsoft.aspnetcore.openapi.9.0.9.nupkg.sha512",
-    "/home/dwayne/.nuget/packages/microsoft.openapi/1.6.17/microsoft.openapi.1.6.17.nupkg.sha512",
-    "/home/dwayne/.nuget/packages/system.buffers/4.5.1/system.buffers.4.5.1.nupkg.sha512",
-    "/home/dwayne/.nuget/packages/microsoft.aspnetcore.app.ref/9.0.9/microsoft.aspnetcore.app.ref.9.0.9.nupkg.sha512"
+    "/home/alex/.nuget/packages/litedb/5.0.21/litedb.5.0.21.nupkg.sha512",
+    "/home/alex/.nuget/packages/microsoft.aspnetcore.openapi/9.0.9/microsoft.aspnetcore.openapi.9.0.9.nupkg.sha512",
+    "/home/alex/.nuget/packages/microsoft.extensions.apidescription.server/9.0.0/microsoft.extensions.apidescription.server.9.0.0.nupkg.sha512",
+    "/home/alex/.nuget/packages/microsoft.openapi/1.6.25/microsoft.openapi.1.6.25.nupkg.sha512",
+    "/home/alex/.nuget/packages/swashbuckle.aspnetcore/9.0.6/swashbuckle.aspnetcore.9.0.6.nupkg.sha512",
+    "/home/alex/.nuget/packages/swashbuckle.aspnetcore.swagger/9.0.6/swashbuckle.aspnetcore.swagger.9.0.6.nupkg.sha512",
+    "/home/alex/.nuget/packages/swashbuckle.aspnetcore.swaggergen/9.0.6/swashbuckle.aspnetcore.swaggergen.9.0.6.nupkg.sha512",
+    "/home/alex/.nuget/packages/swashbuckle.aspnetcore.swaggerui/9.0.6/swashbuckle.aspnetcore.swaggerui.9.0.6.nupkg.sha512",
+    "/home/alex/.nuget/packages/system.buffers/4.5.1/system.buffers.4.5.1.nupkg.sha512"
   ],
   "logs": []
 }

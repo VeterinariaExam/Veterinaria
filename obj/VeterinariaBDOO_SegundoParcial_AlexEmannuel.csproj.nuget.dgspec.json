@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/dwayne/Documents/Base de Datos Avanzadas/VeterinariaBDOO_SegundoParcial_AlexEmannuel/VeterinariaBDOO_SegundoParcial_AlexEmannuel.csproj": {}
+    "/home/alex/Documentos/Universidad/6 Base de datos/proyectos/Vet-exam/Veterinaria/VeterinariaBDOO_SegundoParcial_AlexEmannuel.csproj": {}
   },
   "projects": {
-    "/home/dwayne/Documents/Base de Datos Avanzadas/VeterinariaBDOO_SegundoParcial_AlexEmannuel/VeterinariaBDOO_SegundoParcial_AlexEmannuel.csproj": {
+    "/home/alex/Documentos/Universidad/6 Base de datos/proyectos/Vet-exam/Veterinaria/VeterinariaBDOO_SegundoParcial_AlexEmannuel.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/dwayne/Documents/Base de Datos Avanzadas/VeterinariaBDOO_SegundoParcial_AlexEmannuel/VeterinariaBDOO_SegundoParcial_AlexEmannuel.csproj",
+        "projectUniqueName": "/home/alex/Documentos/Universidad/6 Base de datos/proyectos/Vet-exam/Veterinaria/VeterinariaBDOO_SegundoParcial_AlexEmannuel.csproj",
         "projectName": "VeterinariaBDOO_SegundoParcial_AlexEmannuel",
-        "projectPath": "/home/dwayne/Documents/Base de Datos Avanzadas/VeterinariaBDOO_SegundoParcial_AlexEmannuel/VeterinariaBDOO_SegundoParcial_AlexEmannuel.csproj",
-        "packagesPath": "/home/dwayne/.nuget/packages/",
-        "outputPath": "/home/dwayne/Documents/Base de Datos Avanzadas/VeterinariaBDOO_SegundoParcial_AlexEmannuel/obj/",
+        "projectPath": "/home/alex/Documentos/Universidad/6 Base de datos/proyectos/Vet-exam/Veterinaria/VeterinariaBDOO_SegundoParcial_AlexEmannuel.csproj",
+        "packagesPath": "/home/alex/.nuget/packages/",
+        "outputPath": "/home/alex/Documentos/Universidad/6 Base de datos/proyectos/Vet-exam/Veterinaria/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/dwayne/.nuget/NuGet/NuGet.Config"
+          "/home/alex/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
@@ -38,7 +38,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.100"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net9.0": {
@@ -51,6 +51,10 @@
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[9.0.9, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[9.0.6, )"
             }
           },
           "imports": [
@@ -64,12 +68,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[9.0.9, 9.0.9]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -78,7 +76,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/9.0.110/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/9.0.304/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

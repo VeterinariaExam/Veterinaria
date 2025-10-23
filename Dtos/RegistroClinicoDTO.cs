@@ -4,6 +4,6 @@ public class RegistroClinicoDTO
     public DateTime Fecha { get; set; }
     public Guid IdVeterinario { get; set; }
     public required string Diagnostico { get; set; }
-    public List<Guid> ServiciosRealizadosIds { get; set; } = new List<Guid>();
+    public List<Guid> ServiciosRealizados{ get; set; } = new List<Guid>();
     public string NotasAdicionales { get; set; }
 }

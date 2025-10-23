@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../build/VeterinariaBDOO_SegundoParcial_AlexEmannuel.props" />
+</Project>

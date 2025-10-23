@@ -1,12 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "v3K51z2YVBQ=",
+  "dgSpecHash": "vvCvgY7XoJE=",
   "success": true,
   "projectFilePath": "/home/dwayne/Documents/Base de Datos Avanzadas/VeterinariaBDOO_SegundoParcial_AlexEmannuel/VeterinariaBDOO_SegundoParcial_AlexEmannuel.csproj",
   "expectedPackageFiles": [
     "/home/dwayne/.nuget/packages/litedb/5.0.21/litedb.5.0.21.nupkg.sha512",
-    "/home/dwayne/.nuget/packages/microsoft.aspnetcore.openapi/9.0.9/microsoft.aspnetcore.openapi.9.0.9.nupkg.sha512",
-    "/home/dwayne/.nuget/packages/microsoft.openapi/1.6.17/microsoft.openapi.1.6.17.nupkg.sha512",
+    "/home/dwayne/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "/home/dwayne/.nuget/packages/microsoft.openapi/1.6.14/microsoft.openapi.1.6.14.nupkg.sha512",
+    "/home/dwayne/.nuget/packages/swashbuckle.aspnetcore/6.9.0/swashbuckle.aspnetcore.6.9.0.nupkg.sha512",
+    "/home/dwayne/.nuget/packages/swashbuckle.aspnetcore.swagger/6.9.0/swashbuckle.aspnetcore.swagger.6.9.0.nupkg.sha512",
+    "/home/dwayne/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.9.0/swashbuckle.aspnetcore.swaggergen.6.9.0.nupkg.sha512",
+    "/home/dwayne/.nuget/packages/swashbuckle.aspnetcore.swaggerui/6.9.0/swashbuckle.aspnetcore.swaggerui.6.9.0.nupkg.sha512",
     "/home/dwayne/.nuget/packages/system.buffers/4.5.1/system.buffers.4.5.1.nupkg.sha512",
     "/home/dwayne/.nuget/packages/microsoft.aspnetcore.app.ref/9.0.9/microsoft.aspnetcore.app.ref.9.0.9.nupkg.sha512"
   ],

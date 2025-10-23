@@ -5,6 +5,6 @@ public class MascotaDTO
     public required string Especie { get; set; }
     public DateTime FechaNacimiento { get; set; }
     public required string Sexo { get; set; }
-    public required string Raza { get; set; } // Cambiado a requerido para coincidir con el modelo
+    public required string Raza { get; set; } 
     public Guid IdDueno { get; set; }
 }

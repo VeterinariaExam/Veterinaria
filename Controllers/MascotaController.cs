@@ -154,13 +154,18 @@ public class MascotaController : ControllerBase
         if (!string.IsNullOrEmpty(especie))
             resultados = resultados.Where(m => m.Especie.Equals(especie, StringComparison.OrdinalIgnoreCase));
 
-        if (edadMinima.HasValue && edadMaxima.HasValue)
-        {
-            var fechaActual = DateTime.Now;
-            var fechaMaximaNacimiento = fechaActual.AddYears(-edadMinima.Value);
-            var fechaMinimaNacimiento = fechaActual.AddYears(-edadMaxima.Value - 1).AddDays(1);
+        var fechaActual = DateTime.Now;
 
-            resultados = resultados.Where(m => m.FechaNacimiento >= fechaMinimaNacimiento && m.FechaNacimiento <= fechaMaximaNacimiento);
+        if (edadMinima.HasValue)
+        {
+            var fechaMaximaNacimiento = fechaActual.AddYears(-edadMinima.Value);
+            resultados = resultados.Where(m => m.FechaNacimiento <= fechaMaximaNacimiento);
+        }
+
+        if (edadMaxima.HasValue)
+        {
+            var fechaMinimaNacimiento = fechaActual.AddYears(-edadMaxima.Value);
+            resultados = resultados.Where(m => m.FechaNacimiento >= fechaMinimaNacimiento);
         }
 
         var dtos = resultados.Select(m => new MascotaDTO

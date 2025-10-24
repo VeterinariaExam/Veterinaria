@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-// Servicio para Registro Clínico
+// Servicio para manejo de registros clínicos
 public class RegistroClinicoService
 {
     private readonly RepositorioRegistroClinico _repositorioRegistroClinico;
@@ -19,16 +15,19 @@ public class RegistroClinicoService
         _repositorioServicioMedico = repositorioServicioMedico;
     }
 
+    // Lista todos los registros clínicos
     public IEnumerable<RegistroClinico> Listar()
     {
         return _repositorioRegistroClinico.ListarTodos();
     }
 
+    // Obtiene registro clínico por ID
     public RegistroClinico ObtenerPorId(Guid id)
     {
         return _repositorioRegistroClinico.ObtenerPorId(id);
     }
 
+    // Crea nuevo registro clínico, vincula veterinario y servicios
     public RegistroClinico Crear(RegistroClinicoDTO dto)
     {
         var vet = _repositorioVeterinario.ObtenerPorId(dto.IdVeterinario)
@@ -53,6 +52,7 @@ public class RegistroClinicoService
         return entity;
     }
 
+    // Actualiza registro clínico existente
     public void Actualizar(Guid id, RegistroClinicoDTO dto)
     {
         var existing = _repositorioRegistroClinico.ObtenerPorId(id)
@@ -75,6 +75,7 @@ public class RegistroClinicoService
         _repositorioRegistroClinico.Actualizar(existing);
     }
 
+    // Elimina registro clínico por ID
     public void Eliminar(Guid id)
     {
         _repositorioRegistroClinico.Eliminar(x => x.Id == id);

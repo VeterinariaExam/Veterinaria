@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-// Controlador para ServicioMedico
+// Controlador para servicios médicos (CRUD)
 [ApiController]
 [Route("api/[controller]")]
 public class ServicioMedicoController : ControllerBase
@@ -15,6 +15,7 @@ public class ServicioMedicoController : ControllerBase
         _repositorio = repositorio;
     }
 
+    // Lista todos los servicios médicos
     [HttpGet]
     public ActionResult<IEnumerable<ServicioMedicoDTO>> Get()
     {
@@ -27,6 +28,7 @@ public class ServicioMedicoController : ControllerBase
         }));
     }
 
+    // Obtiene servicio médico por ID
     [HttpGet("{id}")]
     public ActionResult<ServicioMedicoDTO> Get(Guid id)
     {
@@ -41,6 +43,7 @@ public class ServicioMedicoController : ControllerBase
         });
     }
 
+    // Crea nuevo servicio médico
     [HttpPost]
     public ActionResult Post([FromBody] ServicioMedicoDTO dto)
     {
@@ -57,6 +60,7 @@ public class ServicioMedicoController : ControllerBase
         return CreatedAtAction(nameof(Get), new { id = entity.Id }, dto);
     }
 
+    // Actualiza un servicio médico existente
     [HttpPut("{id}")]
     public ActionResult Put(Guid id, [FromBody] ServicioMedicoDTO dto)
     {
@@ -70,6 +74,7 @@ public class ServicioMedicoController : ControllerBase
         return NoContent();
     }
 
+    // Elimina un servicio médico por ID
     [HttpDelete("{id}")]
     public ActionResult Delete(Guid id)
     {

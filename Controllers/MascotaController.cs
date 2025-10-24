@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 
-// Controlador para Mascota
+// Controlador para manejo de mascotas con endpoints REST
 [ApiController]
 [Route("api/[controller]")]
 public class MascotaController : ControllerBase
@@ -16,6 +16,7 @@ public class MascotaController : ControllerBase
         _mascotaService = mascotaService;
     }
 
+    // Lista todas las mascotas
     [HttpGet]
     public ActionResult<IEnumerable<MascotaDTO>> Get()
     {
@@ -32,6 +33,7 @@ public class MascotaController : ControllerBase
         }));
     }
 
+    // Obtiene mascota por ID
     [HttpGet("{id}")]
     public ActionResult<MascotaDTO> Get(Guid id)
     {
@@ -49,6 +51,7 @@ public class MascotaController : ControllerBase
         });
     }
 
+    // Crea nueva mascota
     [HttpPost]
     public ActionResult Post([FromBody] MascotaDTO dto)
     {
@@ -65,6 +68,7 @@ public class MascotaController : ControllerBase
         }
     }
 
+    // Actualiza mascota existente
     [HttpPut("{id}")]
     public ActionResult Put(Guid id, [FromBody] MascotaDTO dto)
     {
@@ -83,6 +87,7 @@ public class MascotaController : ControllerBase
         }
     }
 
+    // Elimina mascota por ID
     [HttpDelete("{id}")]
     public ActionResult Delete(Guid id)
     {
@@ -90,6 +95,7 @@ public class MascotaController : ControllerBase
         return NoContent();
     }
 
+    // Agrega vacuna a mascota específica
     [HttpPost("{id}/vacunas")]
     public ActionResult AgregarVacuna(Guid id, [FromBody] VacunaDTO dtoVacuna)
     {
@@ -106,6 +112,7 @@ public class MascotaController : ControllerBase
         }
     }
 
+    // Lista mascotas con vacunas vencidas
     [HttpGet("vacunas-vencidas")]
     public ActionResult<IEnumerable<MascotaDTO>> GetVacunasVencidas()
     {
@@ -123,6 +130,7 @@ public class MascotaController : ControllerBase
         return Ok(dtos);
     }
 
+    // Lista vacunas de una mascota específica
     [HttpGet("{id}/vacunas")]
     public ActionResult<IEnumerable<VacunaDTO>> GetVacunas(Guid id)
     {
@@ -146,6 +154,7 @@ public class MascotaController : ControllerBase
         }
     }
 
+    // Filtra mascotas por especie y rango de edad opcionalmente
     [HttpGet("filtrar")]
     public ActionResult<IEnumerable<MascotaDTO>> FiltrarMascotas([FromQuery] string? especie, [FromQuery] int? edadMinima, [FromQuery] int? edadMaxima)
     {
@@ -182,6 +191,7 @@ public class MascotaController : ControllerBase
         return Ok(dtos);
     }
 
+    // Obtiene historial clínico completo de mascota
     [HttpGet("{id}/historial-completo")]
     public ActionResult<HistorialClinicoDTO> GetHistorialCompleto(Guid id)
     {

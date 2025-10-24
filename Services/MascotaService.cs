@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
+// Servicio para manejo de Mascotas
 public class MascotaService
 {
     private readonly RepositorioMascota _repositorioMascota;
@@ -15,21 +12,25 @@ public class MascotaService
         _repositorioVeterinario = repositorioVeterinario;
     }
 
+    // Lista todas las mascotas
     public IEnumerable<Mascota> Listar()
     {
         return _repositorioMascota.ListarTodos();
     }
 
+    // Obtiene mascota por ID
     public Mascota ObtenerPorId(Guid id)
     {
         return _repositorioMascota.ObtenerPorId(id);
     }
 
+    // Crea tipo específico de mascota según especie y asocia dueño
     public Mascota Crear(MascotaDTO dto)
     {
         var dueno = _repositorioDueno.ObtenerPorId(dto.IdDueno)
             ?? throw new ArgumentException("Dueño no encontrado.");
 
+        // Discrimina tipo con expresión switch por especie
         Mascota mascota = dto.Especie.ToLower() switch
         {
             "perro" => new Perro
@@ -75,6 +76,7 @@ public class MascotaService
         return mascota;
     }
 
+    // Actualiza mascota existente y su dueño
     public void Actualizar(Guid id, MascotaDTO dto)
     {
         var existente = _repositorioMascota.ObtenerPorId(id)
@@ -92,11 +94,13 @@ public class MascotaService
         _repositorioMascota.Actualizar(existente);
     }
 
+    // Elimina mascota por ID
     public void Eliminar(Guid id)
     {
         _repositorioMascota.Eliminar(x => x.Id == id);
     }
 
+    // Agrega vacuna al historial de una mascota
     public void AgregarVacunaAMascota(Guid idMascota, VacunaDTO dtoVacuna)
     {
         var mascota = _repositorioMascota.ObtenerPorId(idMascota);
@@ -115,6 +119,7 @@ public class MascotaService
         _repositorioMascota.Actualizar(mascota);
     }
 
+    // Lista mascotas con vacunas vencidas (más de un año)
     public IEnumerable<Mascota> ListarMascotasConVacunasVencidas()
     {
         var fechaLimite = DateTime.Now.AddYears(-1);
@@ -122,6 +127,7 @@ public class MascotaService
             .Where(m => m.Historial.Vacunas.Any(v => v.FechaAplicacion <= fechaLimite));
     }
 
+    // Lista vacunas aplicadas a una mascota
     public List<Vacuna> ListarVacunasDeMascota(Guid idMascota)
     {
         var mascota = _repositorioMascota.ObtenerPorId(idMascota)
@@ -129,12 +135,14 @@ public class MascotaService
 
         return mascota.Historial.Vacunas;
     }
+    // Filtra mascotas por especie (sin distinguir mayúsculas/minúsculas)
     public IEnumerable<Mascota> FiltrarPorEspecie(string especie)
     {
         return _repositorioMascota.ListarTodos()
             .Where(m => m.Especie.Equals(especie, StringComparison.OrdinalIgnoreCase));
     }
 
+    // Filtra mascotas por rango de edad (edad mínima y máxima)
     public IEnumerable<Mascota> FiltrarPorRangoEdad(int edadMinima, int edadMaxima)
     {
         var fechaActual = DateTime.Now;
@@ -145,12 +153,14 @@ public class MascotaService
             .Where(m => m.FechaNacimiento >= fechaMinimaNacimiento && m.FechaNacimiento <= fechaMaximaNacimiento);
     }
 
+    // Filtra mascotas por especie y edad usando intersección de filtros separados
     public IEnumerable<Mascota> FiltrarPorEspecieYEdadSeparados(string especie, int edadMinima, int edadMaxima)
     {
         var porEspecie = FiltrarPorEspecie(especie);
         var porEdad = FiltrarPorRangoEdad(edadMinima, edadMaxima);
         return porEspecie.Intersect(porEdad);
     }
+    // Obtiene el historial clínico completo de una mascota
     public HistorialClinico ObtenerHistorialCompleto(Guid idMascota)
     {
         var mascota = _repositorioMascota.ObtenerPorId(idMascota)

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+// Controlador para manejo de citas veterinarias, expone endpoints RESTful
 [ApiController]
 [Route("api/[controller]")]
 public class CitaController : ControllerBase
@@ -14,6 +15,7 @@ public class CitaController : ControllerBase
         _service = service;
     }
 
+    // Endpoint para agregar una cita a una mascota específica
     [HttpPost("mascota/{idMascota}/citas")]
     public ActionResult AgregarCita(Guid idMascota, [FromBody] CitaDTO dto)
     {
@@ -30,6 +32,7 @@ public class CitaController : ControllerBase
         }
     }
 
+    // Lista todas las citas de una mascota por ID
     [HttpGet("mascota/{idMascota}/citas")]
     public ActionResult<IEnumerable<CitaDTO>> ListarPorMascota(Guid idMascota)
     {
@@ -52,6 +55,7 @@ public class CitaController : ControllerBase
         }
     }
 
+    // Obtiene una cita específica por mascota e ID de cita
     [HttpGet("mascota/{idMascota}/cita/{idCita}")]
     public ActionResult<CitaDTO> ObtenerCita(Guid idMascota, Guid idCita)
     {
@@ -69,6 +73,7 @@ public class CitaController : ControllerBase
         return Ok(dto);
     }
 
+    // Actualiza una cita específica
     [HttpPut("mascota/{idMascota}/cita/{idCita}")]
     public ActionResult ActualizarCita(Guid idMascota, Guid idCita, [FromBody] CitaDTO dto)
     {
@@ -83,6 +88,7 @@ public class CitaController : ControllerBase
         }
     }
 
+    // Elimina una cita específica
     [HttpDelete("mascota/{idMascota}/cita/{idCita}")]
     public ActionResult EliminarCita(Guid idMascota, Guid idCita)
     {
@@ -97,6 +103,7 @@ public class CitaController : ControllerBase
         }
     }
 
+    // Obtiene veterinarios con más citas en un mes y año especificados
     [HttpGet("veterinarios/mas-citas")]
     public ActionResult<IEnumerable<object>> VeterinariosMasCitas([FromQuery] int año, [FromQuery] int mes)
     {

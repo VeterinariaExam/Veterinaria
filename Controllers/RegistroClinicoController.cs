@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-// Controlador para RegistroClinico
+// Controlador para registros clínicos (CRUD básico)
 [ApiController]
 [Route("api/[controller]")]
 public class RegistroClinicoController : ControllerBase
@@ -15,12 +15,14 @@ public class RegistroClinicoController : ControllerBase
         _service = service;
     }
 
+    // Lista todos los registros clínicos
     [HttpGet]
     public ActionResult<IEnumerable<RegistroClinico>> Get()
     {
         return Ok(_service.Listar());
     }
 
+    // Obtiene registro clínico por ID
     [HttpGet("{id}")]
     public ActionResult<RegistroClinico> Get(Guid id)
     {
@@ -29,6 +31,7 @@ public class RegistroClinicoController : ControllerBase
         return Ok(r);
     }
 
+    // Crea un nuevo registro clínico
     [HttpPost]
     public ActionResult Post([FromBody] RegistroClinicoDTO dto)
     {
@@ -43,6 +46,7 @@ public class RegistroClinicoController : ControllerBase
         }
     }
 
+    // Actualiza un registro clínico existente
     [HttpPut("{id}")]
     public ActionResult Put(Guid id, [FromBody] RegistroClinicoDTO dto)
     {
@@ -61,6 +65,7 @@ public class RegistroClinicoController : ControllerBase
         }
     }
 
+    // Elimina un registro clínico por ID
     [HttpDelete("{id}")]
     public ActionResult Delete(Guid id)
     {

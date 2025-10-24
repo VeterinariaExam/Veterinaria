@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-// Controlador para Veterinario
+// Controlador para manejo de veterinarios (CRUD)
 [ApiController]
 [Route("api/[controller]")]
 public class VeterinarioController : ControllerBase
@@ -15,6 +15,7 @@ public class VeterinarioController : ControllerBase
         _service = service;
     }
 
+    // Lista todos los veterinarios
     [HttpGet]
     public ActionResult<IEnumerable<VeterinarioDTO>> Get()
     {
@@ -32,6 +33,7 @@ public class VeterinarioController : ControllerBase
         return Ok(dtos);
     }
 
+    // Obtiene veterinario por ID
     [HttpGet("{id}")]
     public ActionResult<VeterinarioDTO> Get(Guid id)
     {
@@ -51,6 +53,7 @@ public class VeterinarioController : ControllerBase
         return Ok(dto);
     }
 
+    // Crea nuevo veterinario
     [HttpPost]
     public ActionResult Post([FromBody] VeterinarioDTO dto)
     {
@@ -65,6 +68,7 @@ public class VeterinarioController : ControllerBase
         }
     }
 
+    // Actualiza veterinario existente
     [HttpPut("{id}")]
     public ActionResult Put(Guid id, [FromBody] VeterinarioDTO dto)
     {
@@ -83,6 +87,7 @@ public class VeterinarioController : ControllerBase
         }
     }
 
+    // Elimina veterinario por ID
     [HttpDelete("{id}")]
     public ActionResult Delete(Guid id)
     {

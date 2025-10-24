@@ -3,13 +3,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+// Controlador para manejo de vacunas (CRUD)
 [ApiController]
 [Route("api/[controller]")]
 public class VacunaController : ControllerBase
 {
     private readonly RepositorioVacuna _repositorio;
+
     public VacunaController(RepositorioVacuna repositorio) { _repositorio = repositorio; }
 
+    // Lista todas las vacunas
     [HttpGet]
     public ActionResult<IEnumerable<VacunaDTO>> Get()
     {
@@ -23,6 +26,7 @@ public class VacunaController : ControllerBase
         }));
     }
 
+    // Obtiene vacuna por ID
     [HttpGet("{id}")]
     public ActionResult<VacunaDTO> Get(Guid id)
     {
@@ -37,6 +41,7 @@ public class VacunaController : ControllerBase
         });
     }
 
+    // Crea una nueva vacuna
     [HttpPost]
     public ActionResult Post([FromBody] VacunaDTO dto)
     {
@@ -52,6 +57,7 @@ public class VacunaController : ControllerBase
         return CreatedAtAction(nameof(Get), new { id = vacuna.Id }, dto);
     }
 
+    // Actualiza vacuna existente
     [HttpPut("{id}")]
     public ActionResult Put(Guid id, [FromBody] VacunaDTO dto)
     {
@@ -66,6 +72,7 @@ public class VacunaController : ControllerBase
         return NoContent();
     }
 
+    // Elimina vacuna por ID
     [HttpDelete("{id}")]
     public ActionResult Delete(Guid id)
     {

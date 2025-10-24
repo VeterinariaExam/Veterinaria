@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-// Controlador para Especialidad
+// Controlador para manejo de especialidades veterinarias (CRUD)
 [ApiController]
 [Route("api/[controller]")]
 public class EspecialidadController : ControllerBase
@@ -15,6 +15,7 @@ public class EspecialidadController : ControllerBase
         _repositorio = repositorio;
     }
 
+    // Lista todas las especialidades
     [HttpGet]
     public ActionResult<IEnumerable<EspecialidadDTO>> Get()
     {
@@ -27,6 +28,7 @@ public class EspecialidadController : ControllerBase
         }));
     }
 
+    // Obtiene especialidad por ID
     [HttpGet("{id}")]
     public ActionResult<EspecialidadDTO> Get(Guid id)
     {
@@ -41,6 +43,7 @@ public class EspecialidadController : ControllerBase
         });
     }
 
+    // Crea una nueva especialidad
     [HttpPost]
     public ActionResult Post([FromBody] EspecialidadDTO dto)
     {
@@ -57,6 +60,7 @@ public class EspecialidadController : ControllerBase
         return CreatedAtAction(nameof(Get), new { id = entity.Id }, dto);
     }
 
+    // Actualiza especialidad existente
     [HttpPut("{id}")]
     public ActionResult Put(Guid id, [FromBody] EspecialidadDTO dto)
     {
@@ -70,6 +74,7 @@ public class EspecialidadController : ControllerBase
         return NoContent();
     }
 
+    // Elimina especialidad por ID
     [HttpDelete("{id}")]
     public ActionResult Delete(Guid id)
     {

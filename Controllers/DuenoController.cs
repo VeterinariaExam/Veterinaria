@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-// Controlador para Dueno
+/// Controlador para manejo de dueños, maneja CRUD de dueños y sus mascotas
 [ApiController]
 [Route("api/[controller]")]
 public class DuenoController : ControllerBase
@@ -12,17 +12,17 @@ public class DuenoController : ControllerBase
     private readonly DuenoService _duenoService;
     private readonly MascotaService _repositorioMascota;
 
-
     public DuenoController(
-    RepositorioDueno repositorio,
-    DuenoService duenoService,
-    MascotaService mascotaService)
-{
-    _repositorio = repositorio;
-    _duenoService = duenoService;
-    _repositorioMascota = mascotaService;
-}
+        RepositorioDueno repositorio,
+        DuenoService duenoService,
+        MascotaService mascotaService)
+    {
+        _repositorio = repositorio;
+        _duenoService = duenoService;
+        _repositorioMascota = mascotaService;
+    }
 
+    // Lista todos los dueños
     [HttpGet]
     public ActionResult<IEnumerable<DuenoDTO>> Get()
     {
@@ -38,6 +38,7 @@ public class DuenoController : ControllerBase
         }));
     }
 
+    // Obtiene dueño por ID
     [HttpGet("{id}")]
     public ActionResult<DuenoDTO> Get(Guid id)
     {
@@ -54,6 +55,7 @@ public class DuenoController : ControllerBase
         });
     }
 
+    // Crea un nuevo dueño
     [HttpPost]
     public ActionResult Post([FromBody] DuenoDTO dto)
     {
@@ -70,6 +72,7 @@ public class DuenoController : ControllerBase
         return CreatedAtAction(nameof(Get), new { id = entity.Id }, dto);
     }
 
+    // Actualiza dueño existente y sus mascotas asociadas
     [HttpPut("{id}")]
     public ActionResult Put(Guid id, [FromBody] DuenoDTO dto)
     {
@@ -82,6 +85,7 @@ public class DuenoController : ControllerBase
         existing.Telefono = dto.Telefono;
         existing.Direccion = dto.Direccion;
 
+        // Actualiza asociación mascotas, validando que existan
         existing.Mascotas.Clear();
         foreach (var mascotaId in dto.MascotasIds)
         {
@@ -93,10 +97,10 @@ public class DuenoController : ControllerBase
         }
 
         _repositorio.Actualizar(existing);
-
         return NoContent();
     }
 
+    // Elimina dueño por ID
     [HttpDelete("{id}")]
     public ActionResult Delete(Guid id)
     {
@@ -106,6 +110,7 @@ public class DuenoController : ControllerBase
         return NoContent();
     }
 
+    // Lista dueños con al menos un número mínimo de mascotas
     [HttpGet("con-mascotas-minimas/{minimo}")]
     public ActionResult<IEnumerable<DuenoDTO>> GetConMascotasMinimas(int minimo)
     {
@@ -121,6 +126,4 @@ public class DuenoController : ControllerBase
         });
         return Ok(dtos);
     }
-
-
 }

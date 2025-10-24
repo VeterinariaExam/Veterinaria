@@ -1,3 +1,4 @@
+// Servicio para manejo de Veterinarios
 public class VeterinarioService
 {
     private readonly RepositorioVeterinario _repositorioVeterinario;
@@ -19,16 +20,19 @@ public class VeterinarioService
         _repositorioMascota = repositorioMascota;
     }
 
+    // Lista todos los veterinarios
     public IEnumerable<Veterinario> Listar()
     {
         return _repositorioVeterinario.ListarTodos();
     }
 
+    // Obtiene veterinario por ID
     public Veterinario ObtenerPorId(Guid id)
     {
         return _repositorioVeterinario.ObtenerPorId(id);
     }
 
+    // Crea nuevo veterinario, asignando especialidades y servicios brindados
     public Veterinario Crear(VeterinarioDTO dto)
     {
         var especialidades = dto.EspecialidadesIds
@@ -56,6 +60,7 @@ public class VeterinarioService
         return vet;
     }
 
+    // Actualiza veterinario existente con nuevos datos, especialidades y servicios
     public void Actualizar(Guid id, VeterinarioDTO dto)
     {
         var existente = _repositorioVeterinario.ObtenerPorId(id)
@@ -81,9 +86,10 @@ public class VeterinarioService
         _repositorioVeterinario.Actualizar(existente);
     }
 
+    // Elimina veterinario por ID
     public void Eliminar(Guid id)
     {
         _repositorioVeterinario.Eliminar(x => x.Id == id);
     }
-   
+
 }

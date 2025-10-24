@@ -13,6 +13,8 @@ builder.Services.AddScoped<RepositorioEspecialidad>();
 builder.Services.AddScoped<RepositorioServicioMedico>();
 builder.Services.AddScoped<RepositorioRegistroClinico>();
 builder.Services.AddScoped<RepositorioVacuna>();
+builder.Services.AddScoped<RepositorioCita>();
+
 
 builder.Services.AddScoped<MascotaService>();
 builder.Services.AddScoped<DuenoService>();
@@ -21,6 +23,7 @@ builder.Services.AddScoped<EspecialidadService>();
 builder.Services.AddScoped<ServicioMedicoService>();
 builder.Services.AddScoped<RegistroClinicoService>();
 builder.Services.AddScoped<VacunaService>();
+builder.Services.AddScoped<CitaService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

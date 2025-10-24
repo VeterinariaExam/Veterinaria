@@ -3,15 +3,20 @@ public class VeterinarioService
     private readonly RepositorioVeterinario _repositorioVeterinario;
     private readonly RepositorioEspecialidad _repositorioEspecialidad;
     private readonly RepositorioServicioMedico _repositorioServicioMedico;
+    private readonly RepositorioMascota _repositorioMascota;
+
+
 
     public VeterinarioService(
-        RepositorioVeterinario repositorioVeterinario,
-        RepositorioEspecialidad repositorioEspecialidad,
-        RepositorioServicioMedico repositorioServicioMedico)
+    RepositorioVeterinario repositorioVeterinario,
+    RepositorioEspecialidad repositorioEspecialidad,
+    RepositorioServicioMedico repositorioServicioMedico,
+    RepositorioMascota repositorioMascota)
     {
         _repositorioVeterinario = repositorioVeterinario;
         _repositorioEspecialidad = repositorioEspecialidad;
         _repositorioServicioMedico = repositorioServicioMedico;
+        _repositorioMascota = repositorioMascota;
     }
 
     public IEnumerable<Veterinario> Listar()
@@ -80,4 +85,5 @@ public class VeterinarioService
     {
         _repositorioVeterinario.Eliminar(x => x.Id == id);
     }
+   
 }

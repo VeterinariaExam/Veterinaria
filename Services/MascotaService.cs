@@ -158,27 +158,4 @@ public class MascotaService
 
         return mascota.Historial;
     }
-
-    public void AgregarCitaAMascota(Guid idMascota, CitaDTO dtoCita)
-    {
-        var mascota = _repositorioMascota.ObtenerPorId(idMascota)
-            ?? throw new ArgumentException("Mascota no encontrada.");
-
-        var cita = new Cita
-        {
-            Id = Guid.NewGuid(),
-            FechaHora = dtoCita.FechaHora,
-            Veterinario = _repositorioVeterinario.ObtenerPorId(dtoCita.VeterinarioId)
-                          ?? throw new ArgumentException("Veterinario no encontrado."),
-            Motivo = dtoCita.Motivo,
-            Estado = dtoCita.Estado
-        };
-
-        mascota.Historial.Citas.Add(cita);
-        _repositorioMascota.Actualizar(mascota);
-    }
-
-
-
-
 }

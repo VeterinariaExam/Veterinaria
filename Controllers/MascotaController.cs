@@ -221,22 +221,4 @@ public class MascotaController : ControllerBase
             return NotFound(ex.Message);
         }
     }
-
-    [HttpPost("{id}/citas")]
-public ActionResult AgregarCita(Guid id, [FromBody] CitaDTO dtoCita)
-{
-    if (dtoCita == null) return BadRequest("Cita inválida.");
-
-    try
-    {
-        _service.AgregarCitaAMascota(id, dtoCita);
-        return NoContent();
-    }
-    catch (ArgumentException ex)
-    {
-        return NotFound(ex.Message);
-    }
-}
-
-
 }

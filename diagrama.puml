@@ -1,0 +1,104 @@
+@startuml Veterinaria
+
+' Estilo del diagrama
+skinparam class {
+    BackgroundColor white
+    ArrowColor #2688d4
+    BorderColor #2688d4
+}
+
+' Clases base
+abstract class Persona {
+    +Id: Guid
+    +Nombre: string
+    +Apellido: string
+    +Telefono: string
+    +Email: string
+}
+
+class Dueno extends Persona {
+    +Direccion: string
+    +Mascotas: List<Mascota>
+}
+
+class Veterinario extends Persona {
+    +NumeroLicencia: string
+    +Especialidades: List<Especialidad>
+}
+
+' Mascotas
+abstract class Mascota {
+    +Id: Guid
+    +Nombre: string
+    +FechaNacimiento: DateTime
+    +Peso: double
+    +DuenoId: Guid
+    +HistorialClinico: HistorialClinico
+}
+
+class Perro extends Mascota {
+    +Raza: string
+    +NivelEntrenamiento: string
+}
+
+class Gato extends Mascota {
+    +Raza: string
+    +EsCallejero: bool
+}
+
+class Ave extends Mascota {
+    +Especie: string
+    +PuedeVolar: bool
+}
+
+class Reptil extends Mascota {
+    +Especie: string
+    +EsVenenoso: bool
+}
+
+' Clases médicas
+class HistorialClinico {
+    +Id: Guid
+    +MascotaId: Guid
+    +Registros: List<RegistroClinico>
+}
+
+class RegistroClinico {
+    +Id: Guid
+    +Fecha: DateTime
+    +Diagnostico: string
+    +Tratamiento: string
+    +VeterinarioId: Guid
+    +MascotaId: Guid
+    +ServiciosMedicos: List<ServicioMedico>
+}
+
+class ServicioMedico {
+    +Id: Guid
+    +Descripcion: string
+    +Costo: decimal
+}
+
+class Vacuna {
+    +Id: Guid
+    +Nombre: string
+    +FechaAplicacion: DateTime
+    +MascotaId: Guid
+}
+
+class Especialidad {
+    +Id: Guid
+    +Nombre: string
+    +Descripcion: string
+}
+
+' Relaciones
+Dueno "1" -- "*" Mascota : posee >
+Mascota "1" -- "1" HistorialClinico : tiene >
+HistorialClinico "1" -- "*" RegistroClinico : contiene >
+RegistroClinico "*" -- "1" Veterinario : atendido por >
+RegistroClinico "*" -- "*" ServicioMedico : incluye >
+Veterinario "*" -- "*" Especialidad : tiene >
+Mascota "1" -- "*" Vacuna : recibe >
+
+@enduml
